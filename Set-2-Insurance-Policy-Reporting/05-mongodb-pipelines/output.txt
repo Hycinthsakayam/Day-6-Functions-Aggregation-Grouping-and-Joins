@@ -1,0 +1,77 @@
+Command: mongosh claims_pipelines.js
+
+claims loaded: 12
+
+--- Pipeline 1 : claims per status ---
+[
+  {
+    status: 'Settled',
+    claims: 8,
+    amount_claimed: 261000
+  },
+  {
+    status: 'In Review',
+    claims: 2,
+    amount_claimed: 73000
+  },
+  {
+    status: 'Open',
+    claims: 1,
+    amount_claimed: 9000
+  },
+  {
+    status: 'Rejected',
+    claims: 1,
+    amount_claimed: 15000
+  }
+]
+
+--- Pipeline 2 : average settlement time ---
+[
+  {
+    product: 'Motor',
+    settled_claims: 1,
+    avg_days: 18,
+    fastest: 18,
+    slowest: 18
+  },
+  {
+    product: 'Health',
+    settled_claims: 6,
+    avg_days: 20.5,
+    fastest: 15,
+    slowest: 28
+  },
+  {
+    product: 'Home',
+    settled_claims: 1,
+    avg_days: 25,
+    fastest: 25,
+    slowest: 25
+  }
+]
+[
+  {
+    settled_claims: 8,
+    avg_days_overall: 20.75
+  }
+]
+
+--- Pipeline 3 : top three damage categories ---
+[
+  {
+    damage_category: 'Hospitalisation',
+    claims: 3,
+    amount_claimed: 81000
+  },
+  {
+    damage_category: 'Surgery',
+    claims: 2,
+    amount_claimed: 98000
+  },
+  {
+    damage_category: 'Accident',
+    claims: 2,
+    amount_claimed: 70000
+  }
+]

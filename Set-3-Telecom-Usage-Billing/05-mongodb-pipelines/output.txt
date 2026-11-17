@@ -1,0 +1,26 @@
+Command: mongosh usage_pipelines.js
+
+events loaded: 40
+
+--- Pipeline 1 : hourly usage on 16 Nov 2026 ---
+{"hour":7,"events":3,"data_mb":785.3,"voice_min":5.6}
+{"hour":9,"events":1,"data_mb":276.1,"voice_min":0}
+{"hour":10,"events":2,"data_mb":0,"voice_min":11.8}
+{"hour":12,"events":4,"data_mb":1414.8,"voice_min":0}
+{"hour":13,"events":6,"data_mb":1133,"voice_min":11.9}
+{"hour":18,"events":4,"data_mb":481,"voice_min":19.5}
+{"hour":19,"events":2,"data_mb":330.6,"voice_min":0}
+{"hour":20,"events":6,"data_mb":1262.5,"voice_min":14.2}
+{"hour":21,"events":10,"data_mb":1692.6,"voice_min":19.6}
+{"hour":22,"events":2,"data_mb":114.9,"voice_min":2.9}
+
+--- Pipeline 2 : average session length ---
+{"event_type":"data_session","sessions":27,"avg_minutes":32.8,"longest_minutes":59.42}
+{"event_type":"voice_call","sessions":13,"avg_minutes":6.57,"longest_minutes":10.38}
+
+--- Pipeline 3 : busiest cell tower ---
+{"tower_id":"TWR-CHN-101","events":14,"data_mb":2378.2}
+{"tower_id":"TWR-BLR-201","events":9,"data_mb":1345.2}
+{"tower_id":"TWR-MUM-401","events":8,"data_mb":1596.6}
+{"tower_id":"TWR-HYD-301","events":7,"data_mb":1373.7}
+{"tower_id":"TWR-CHN-102","events":2,"data_mb":797.1}

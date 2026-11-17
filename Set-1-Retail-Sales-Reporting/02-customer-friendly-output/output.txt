@@ -1,0 +1,25 @@
+-- Task 2. Customer-friendly summary using UPPER, CONCAT, DATEDIFF, FORMAT and ROUND
+SELECT c.customer_id,
+       CONCAT(UPPER(c.full_name), ' (', c.city, ') - customer for ',
+              DATEDIFF(MONTH, c.joined_on, GETDATE()), ' months, ',
+              COUNT(DISTINCT o.order_id), ' order(s), spent Rs. ',
+              FORMAT(ROUND(SUM(oi.quantity * oi.unit_price), 0), 'N0', 'en-IN'),
+              ', last order on ', FORMAT(MAX(o.order_date), 'dd MMM yyyy')) AS customer_summary
+FROM customers c
+JOIN orders o       ON o.customer_id = c.customer_id AND o.status = 'Delivered'
+JOIN order_items oi ON oi.order_id = o.order_id
+GROUP BY c.customer_id, c.full_name, c.city, c.joined_on
+ORDER BY c.customer_id;
+customer_id | customer_summary
+------------+-----------------------------------------------------------------------------------------------------------
+1           | ARUN PRAKASH (Chennai) - customer for 22 months, 5 order(s), spent Rs. 14,661, last order on 11 Nov 2026
+2           | DIVYA MENON (Chennai) - customer for 20 months, 2 order(s), spent Rs. 3,137, last order on 26 Oct 2026
+3           | KARTHIK RAJA (Bengaluru) - customer for 21 months, 4 order(s), spent Rs. 10,262, last order on 05 Nov 2026
+4           | MEENA IYER (Bengaluru) - customer for 17 months, 2 order(s), spent Rs. 5,897, last order on 02 Nov 2026
+5           | RAHUL SHARMA (Hyderabad) - customer for 16 months, 4 order(s), spent Rs. 12,030, last order on 08 Nov 2026
+6           | SNEHA PATIL (Hyderabad) - customer for 14 months, 1 order(s), spent Rs. 649, last order on 13 Nov 2026
+7           | VIKRAM SINGH (Mumbai) - customer for 12 months, 2 order(s), spent Rs. 3,489, last order on 20 Oct 2026
+8           | PRIYA NAIR (Mumbai) - customer for 10 months, 2 order(s), spent Rs. 5,696, last order on 15 Nov 2026
+9           | LAKSHMI DEVI (Chennai) - customer for 7 months, 1 order(s), spent Rs. 5,897, last order on 20 Oct 2026
+
+(9 rows affected)

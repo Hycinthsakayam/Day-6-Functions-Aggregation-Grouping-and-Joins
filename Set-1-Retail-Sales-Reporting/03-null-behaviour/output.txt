@@ -1,0 +1,13 @@
+-- Task 3. NULL behaviour : discount is NULL when no coupon was used
+SELECT COUNT(*)                 AS count_star,
+       COUNT(discount)          AS count_discount,
+       SUM(discount)            AS sum_discount,
+       AVG(discount)            AS avg_discount,
+       AVG(ISNULL(discount, 0)) AS avg_discount_null_as_zero
+FROM orders;
+count_star | count_discount | sum_discount | avg_discount | avg_discount_null_as_zero
+-----------+----------------+--------------+--------------+--------------------------
+24         | 12             | 1950.00      | 162.500000   | 81.250000
+
+Warning: Null value is eliminated by an aggregate or other SET operation.
+(1 row affected)

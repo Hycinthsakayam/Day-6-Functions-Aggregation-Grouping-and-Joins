@@ -1,0 +1,34 @@
+-- Task 2. Masked policy number and policy age band (DATEADD, DATEDIFF, CASE, string functions)
+SELECT CONCAT(LEFT(p.policy_no, 3), REPLICATE('*', LEN(p.policy_no) - 7), RIGHT(p.policy_no, 4)) AS masked_policy_no,
+       UPPER(c.full_name) AS customer,
+       p.start_date,
+       CASE WHEN DATEDIFF(MONTH, p.start_date, GETDATE()) < 6  THEN 'New (under 6 months)'
+            WHEN DATEDIFF(MONTH, p.start_date, GETDATE()) < 12 THEN '6-12 months'
+            WHEN DATEDIFF(MONTH, p.start_date, GETDATE()) < 36 THEN '1-3 years'
+            ELSE 'Over 3 years' END AS policy_age_band,
+       DATEADD(DAY, 1, p.end_date) AS renewal_due_on
+FROM policies p
+JOIN customers c ON c.customer_id = p.customer_id
+WHERE p.status = 'Active'
+ORDER BY p.start_date;
+masked_policy_no | customer     | start_date | policy_age_band      | renewal_due_on
+-----------------+--------------+------------+----------------------+---------------
+LIF******0103    | KARTHIK RAJA | 2022-06-15 | Over 3 years         | 2042-06-15
+LIF******0109    | VIKRAM SINGH | 2023-02-01 | Over 3 years         | 2033-02-01
+HME******0106    | MEENA IYER   | 2024-08-01 | 1-3 years            | 2027-08-01
+HLT******0101    | ARUN PRAKASH | 2025-12-01 | 6-12 months          | 2026-12-01
+MOT******0105    | KARTHIK RAJA | 2025-12-10 | 6-12 months          | 2026-12-10
+MOT******0114    | SANJAY GUPTA | 2025-12-28 | 6-12 months          | 2026-12-28
+HLT******0104    | KARTHIK RAJA | 2026-01-20 | 6-12 months          | 2027-01-20
+MOT******0102    | ARUN PRAKASH | 2026-03-10 | 6-12 months          | 2027-03-10
+HLT******0110    | VIKRAM SINGH | 2026-04-12 | 6-12 months          | 2027-04-12
+MOT******0111    | PRIYA NAIR   | 2026-05-18 | 6-12 months          | 2027-05-18
+HLT******0112    | LAKSHMI DEVI | 2026-06-01 | New (under 6 months) | 2027-06-01
+HME******0113    | SANJAY GUPTA | 2026-07-22 | New (under 6 months) | 2027-07-22
+HLT******0116    | IMRAN KHAN   | 2026-08-14 | New (under 6 months) | 2027-08-14
+LIF******0117    | IMRAN KHAN   | 2026-10-05 | New (under 6 months) | 2046-10-05
+MOT******0118    | DIVYA MENON  | 2026-10-19 | New (under 6 months) | 2027-10-19
+HLT******0120    | PRIYA NAIR   | 2026-11-03 | New (under 6 months) | 2027-11-03
+TRV******0108    | SNEHA PATIL  | 2026-11-10 | New (under 6 months) | 2026-12-16
+
+(17 rows affected)

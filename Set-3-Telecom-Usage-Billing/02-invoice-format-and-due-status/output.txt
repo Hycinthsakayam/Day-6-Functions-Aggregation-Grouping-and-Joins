@@ -1,0 +1,39 @@
+-- Task 2. Formatted invoice number and due-date status
+SELECT CONCAT('INV/', c.circle_code, '/', FORMAT(i.bill_month, 'yyyyMM'), '/',
+              RIGHT('00000' + CAST(i.invoice_id AS VARCHAR(5)), 5)) AS invoice_no,
+       UPPER(s.full_name) AS subscriber,
+       CONCAT(LEFT(s.msisdn, 2), 'XXXXX', RIGHT(s.msisdn, 3)) AS mobile,
+       FORMAT(i.due_date, 'dd-MMM-yyyy') AS due_date,
+       CASE WHEN i.paid_on IS NOT NULL AND i.paid_on > i.due_date THEN 'Paid late'
+            WHEN i.paid_on IS NOT NULL THEN 'Paid'
+            WHEN DATEDIFF(DAY, i.due_date, GETDATE()) > 15 THEN CONCAT('Overdue ', DATEDIFF(DAY, i.due_date, GETDATE()), ' days')
+            WHEN DATEDIFF(DAY, i.due_date, GETDATE()) > 0  THEN 'Overdue'
+            ELSE CONCAT('Due in ', DATEDIFF(DAY, GETDATE(), i.due_date), ' days') END AS due_status
+FROM invoices i
+JOIN subscribers s ON s.subscriber_id = i.subscriber_id
+JOIN circles c     ON c.circle_id = s.circle_id
+WHERE i.paid_on IS NULL OR i.paid_on > i.due_date OR i.bill_month = '2026-10-01'
+ORDER BY i.bill_month, i.invoice_id;
+invoice_no          | subscriber    | mobile     | due_date    | due_status
+--------------------+---------------+------------+-------------+----------------
+INV/AP/202608/00006 | SNEHA PATIL   | 98XXXXX006 | 21-Sep-2026 | Overdue 57 days
+INV/MH/202608/00008 | PRIYA NAIR    | 98XXXXX008 | 21-Sep-2026 | Paid late
+INV/KA/202609/00017 | MEENA IYER    | 98XXXXX004 | 21-Oct-2026 | Overdue 27 days
+INV/TN/202609/00022 | LAKSHMI DEVI  | 98XXXXX009 | 21-Oct-2026 | Overdue 27 days
+INV/TN/202610/00028 | ARUN PRAKASH  | 98XXXXX001 | 21-Nov-2026 | Paid
+INV/TN/202610/00029 | DIVYA MENON   | 98XXXXX002 | 21-Nov-2026 | Paid
+INV/KA/202610/00030 | KARTHIK RAJA  | 98XXXXX003 | 21-Nov-2026 | Paid
+INV/KA/202610/00031 | MEENA IYER    | 98XXXXX004 | 21-Nov-2026 | Due in 4 days
+INV/AP/202610/00032 | RAHUL SHARMA  | 98XXXXX005 | 21-Nov-2026 | Paid
+INV/AP/202610/00033 | SNEHA PATIL   | 98XXXXX006 | 21-Nov-2026 | Paid
+INV/MH/202610/00034 | VIKRAM SINGH  | 98XXXXX007 | 21-Nov-2026 | Paid
+INV/MH/202610/00035 | PRIYA NAIR    | 98XXXXX008 | 21-Nov-2026 | Paid
+INV/TN/202610/00036 | LAKSHMI DEVI  | 98XXXXX009 | 21-Nov-2026 | Paid
+INV/KA/202610/00037 | SANJAY GUPTA  | 98XXXXX010 | 21-Nov-2026 | Paid
+INV/TN/202610/00038 | NITHYA RAMESH | 98XXXXX011 | 21-Nov-2026 | Paid
+INV/AP/202610/00039 | IMRAN KHAN    | 98XXXXX012 | 21-Nov-2026 | Paid
+INV/MH/202610/00040 | DEEPA JOSEPH  | 98XXXXX013 | 21-Nov-2026 | Due in 4 days
+INV/KA/202610/00041 | ARJUN NAIR    | 98XXXXX014 | 21-Nov-2026 | Paid
+INV/TN/202610/00042 | FATHIMA BEGUM | 98XXXXX015 | 21-Nov-2026 | Paid
+
+(19 rows affected)

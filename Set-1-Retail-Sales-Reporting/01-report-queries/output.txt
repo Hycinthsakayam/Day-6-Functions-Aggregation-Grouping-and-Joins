@@ -1,0 +1,163 @@
+==== Q1_top5_products_by_revenue ====
+
+-- Q1. Top 5 products by revenue
+SELECT TOP 5 p.product_name, p.category,
+       SUM(oi.quantity)                 AS units_sold,
+       SUM(oi.quantity * oi.unit_price) AS revenue
+FROM order_items oi
+JOIN orders o   ON o.order_id = oi.order_id
+JOIN products p ON p.product_id = oi.product_id
+WHERE o.status = 'Delivered'
+GROUP BY p.product_name, p.category
+ORDER BY revenue DESC;
+product_name       | category       | units_sold | revenue
+-------------------+----------------+------------+---------
+Smart Watch        | Electronics    | 4          | 13996.00
+Mixer Grinder 750W | Home & Kitchen | 3          | 9897.00
+Running Shoes      | Footwear       | 4          | 8796.00
+Basmati Rice 5kg   | Groceries      | 10         | 6450.00
+Bluetooth Speaker  | Electronics    | 4          | 5996.00
+
+(5 rows affected)
+
+
+==== Q2_month_wise_sales ====
+
+-- Q2. Month-wise sales
+SELECT FORMAT(o.order_date, 'yyyy-MM')  AS sales_month,
+       COUNT(DISTINCT o.order_id)        AS orders,
+       SUM(oi.quantity * oi.unit_price)  AS revenue
+FROM orders o
+JOIN order_items oi ON oi.order_id = o.order_id
+WHERE o.status = 'Delivered'
+GROUP BY FORMAT(o.order_date, 'yyyy-MM')
+ORDER BY sales_month;
+sales_month | orders | revenue
+------------+--------+---------
+2026-08     | 5      | 10834.00
+2026-09     | 5      | 11150.00
+2026-10     | 7      | 24921.00
+2026-11     | 6      | 14813.00
+
+(4 rows affected)
+
+
+==== Q3_customers_more_than_3_orders ====
+
+-- Q3. Customers with more than three orders
+SELECT c.customer_id, c.full_name, c.city, COUNT(o.order_id) AS total_orders
+FROM customers c
+JOIN orders o ON o.customer_id = c.customer_id
+WHERE o.status = 'Delivered'
+GROUP BY c.customer_id, c.full_name, c.city
+HAVING COUNT(o.order_id) > 3
+ORDER BY total_orders DESC;
+customer_id | full_name    | city      | total_orders
+------------+--------------+-----------+-------------
+1           | Arun Prakash | Chennai   | 5
+3           | Karthik Raja | Bengaluru | 4
+5           | Rahul Sharma | Hyderabad | 4
+
+(3 rows affected)
+
+
+==== Q4_avg_basket_value_per_city ====
+
+-- Q4. Average basket value per city
+WITH order_totals AS (
+    SELECT o.order_id, c.city, SUM(oi.quantity * oi.unit_price) AS basket_value
+    FROM orders o
+    JOIN customers c    ON c.customer_id = o.customer_id
+    JOIN order_items oi ON oi.order_id = o.order_id
+    WHERE o.status = 'Delivered'
+    GROUP BY o.order_id, c.city
+)
+SELECT city, COUNT(*) AS orders, CAST(ROUND(AVG(basket_value), 2) AS DECIMAL(10,2)) AS avg_basket_value
+FROM order_totals
+GROUP BY city
+ORDER BY avg_basket_value DESC;
+city      | orders | avg_basket_value
+----------+--------+-----------------
+Chennai   | 8      | 2961.88
+Bengaluru | 6      | 2693.17
+Hyderabad | 5      | 2535.80
+Mumbai    | 4      | 2296.25
+
+(4 rows affected)
+
+
+==== Q5_orders_without_payment ====
+
+-- Q5. Orders without payment
+SELECT o.order_id, c.full_name, o.order_date, o.status
+FROM orders o
+JOIN customers c     ON c.customer_id = o.customer_id
+LEFT JOIN payments p ON p.order_id = o.order_id
+WHERE p.order_id IS NULL
+  AND o.status = 'Delivered'
+ORDER BY o.order_id;
+order_id | full_name    | order_date | status
+---------+--------------+------------+----------
+21       | Rahul Sharma | 2026-11-08 | Delivered
+23       | Sneha Patil  | 2026-11-13 | Delivered
+24       | Priya Nair   | 2026-11-15 | Delivered
+
+(3 rows affected)
+
+
+==== Q6_customers_with_no_orders ====
+
+-- Q6. Customers with no orders
+SELECT c.customer_id, c.full_name, c.city, c.joined_on
+FROM customers c
+LEFT JOIN orders o ON o.customer_id = c.customer_id
+WHERE o.order_id IS NULL;
+customer_id | full_name     | city      | joined_on
+------------+---------------+-----------+-----------
+10          | Sanjay Gupta  | Bengaluru | 2026-08-19
+11          | Nithya Ramesh | Hyderabad | 2026-10-01
+
+(2 rows affected)
+
+
+==== Q7_category_revenue_share ====
+
+-- Q7. Revenue share of each product category
+SELECT p.category,
+       SUM(oi.quantity * oi.unit_price) AS revenue,
+       CAST(ROUND(SUM(oi.quantity * oi.unit_price) * 100.0
+             / SUM(SUM(oi.quantity * oi.unit_price)) OVER (), 2) AS DECIMAL(5,2)) AS share_percent
+FROM order_items oi
+JOIN orders o   ON o.order_id = oi.order_id
+JOIN products p ON p.product_id = oi.product_id
+WHERE o.status = 'Delivered'
+GROUP BY p.category
+ORDER BY revenue DESC;
+category       | revenue  | share_percent
+---------------+----------+--------------
+Electronics    | 26184.00 | 42.43
+Home & Kitchen | 12294.00 | 19.92
+Groceries      | 9650.00  | 15.64
+Footwear       | 8796.00  | 14.25
+Clothing       | 4794.00  | 7.77
+
+(5 rows affected)
+
+
+==== Q8_highest_sales_day ====
+
+-- Q8. Day with the highest sales
+SELECT TOP 1 o.order_date,
+       DATENAME(WEEKDAY, o.order_date)  AS day_name,
+       COUNT(DISTINCT o.order_id)       AS orders,
+       SUM(oi.quantity * oi.unit_price) AS revenue
+FROM orders o
+JOIN order_items oi ON oi.order_id = o.order_id
+WHERE o.status = 'Delivered'
+GROUP BY o.order_date
+ORDER BY revenue DESC;
+order_date | day_name | orders | revenue
+-----------+----------+--------+---------
+2026-10-20 | Tuesday  | 3      | 13985.00
+
+(1 row affected)

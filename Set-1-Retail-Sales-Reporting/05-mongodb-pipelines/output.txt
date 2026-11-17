@@ -1,0 +1,80 @@
+Command: mongosh sales_pipelines.js
+
+orders loaded: 24
+
+--- Pipeline 1 : month-wise sales ---
+[
+  {
+    month: '2026-08',
+    orders: 5,
+    revenue: 10834
+  },
+  {
+    month: '2026-09',
+    orders: 5,
+    revenue: 11150
+  },
+  {
+    month: '2026-10',
+    orders: 7,
+    revenue: 24921
+  },
+  {
+    month: '2026-11',
+    orders: 6,
+    revenue: 14813
+  }
+]
+
+--- Pipeline 2 : top 5 products by revenue ---
+[
+  {
+    product: 'Smart Watch',
+    units: 4,
+    revenue: 13996
+  },
+  {
+    product: 'Mixer Grinder 750W',
+    units: 3,
+    revenue: 9897
+  },
+  {
+    product: 'Running Shoes',
+    units: 4,
+    revenue: 8796
+  },
+  {
+    product: 'Basmati Rice 5kg',
+    units: 10,
+    revenue: 6450
+  },
+  {
+    product: 'Bluetooth Speaker',
+    units: 4,
+    revenue: 5996
+  }
+]
+
+--- Pipeline 3 : average basket value per city ---
+[
+  {
+    city: 'Chennai',
+    orders: 8,
+    avg_basket: 2961.88
+  },
+  {
+    city: 'Bengaluru',
+    orders: 6,
+    avg_basket: 2693.17
+  },
+  {
+    city: 'Hyderabad',
+    orders: 5,
+    avg_basket: 2535.8
+  },
+  {
+    city: 'Mumbai',
+    orders: 4,
+    avg_basket: 2296.25
+  }
+]

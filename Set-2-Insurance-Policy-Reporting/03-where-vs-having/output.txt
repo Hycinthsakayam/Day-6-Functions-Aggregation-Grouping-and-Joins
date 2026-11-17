@@ -1,0 +1,27 @@
+-- Task 3. WHERE vs HAVING (using Q3)
+-- (a) without WHERE : expired policies are also counted, so Divya Menon wrongly appears
+SELECT c.full_name, COUNT(*) AS policies
+FROM customers c JOIN policies p ON p.customer_id = c.customer_id
+GROUP BY c.full_name
+HAVING COUNT(*) > 1
+ORDER BY c.full_name;
+full_name    | policies
+-------------+---------
+Arun Prakash | 2
+Divya Menon  | 2
+Imran Khan   | 2
+Karthik Raja | 3
+Priya Nair   | 2
+Sanjay Gupta | 2
+Vikram Singh | 2
+
+(7 rows affected)
+
+
+-- (b) aggregate in WHERE is not allowed
+SELECT c.full_name, COUNT(*) AS policies
+FROM customers c JOIN policies p ON p.customer_id = c.customer_id
+WHERE COUNT(*) > 1
+GROUP BY c.full_name;
+Msg 147, Level 15, State 1, Server Istin\SQLEXPRESS, Line 5
+An aggregate may not appear in the WHERE clause unless it is in a subquery contained in a HAVING clause or a select list, and the column being aggregated is an outer reference.
