@@ -1,4 +1,4 @@
-# Task 1 – Report Queries
+# Question 1 – Report Queries
 
 Date-based reports use `GETDATE()`; the results shown are as of 17 Nov 2026.
 
@@ -14,6 +14,8 @@ Date-based reports use `GETDATE()`; the results shown are as of 17 Nov 2026.
 | [Q8_top5_agents_by_premium.sql](Q8_top5_agents_by_premium.sql) | Top 5 agents by premium |
 
 ## Output
+
+Full text output: [output.txt](output.txt)
 
 **Q1. Policies expiring in the next 30 days**
 
@@ -46,3 +48,8 @@ Date-based reports use `GETDATE()`; the results shown are as of 17 Nov 2026.
 **Q8. Top 5 agents by premium**
 
 ![Q8](Q8_output.png)
+
+
+## Approach
+
+![flowchart](flowchart.svg)

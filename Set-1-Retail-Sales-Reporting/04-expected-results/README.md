@@ -1,4 +1,4 @@
-# Task 4 – Expected Result of Every Query
+# Question 4 – Expected Result of Every Query
 
 Results were checked by running `setup.sql` and `reports.sql` on SQL Server 2025 Express. Screenshots are in [01-report-queries](../01-report-queries/).
 
@@ -12,3 +12,8 @@ Results were checked by running `setup.sql` and `reports.sql` on SQL Server 2025
 | [Q6](../01-report-queries/Q6_customers_with_no_orders.sql) | Customers with no orders | 2 rows: Sanjay Gupta, Nithya Ramesh |
 | [Q7](../01-report-queries/Q7_category_revenue_share.sql) | Product-category revenue share | 5 rows totalling 100%; Electronics 42.43% |
 | [Q8](../01-report-queries/Q8_highest_sales_day.sql) | Day with the highest sales | 1 row: 20 Oct 2026 (Tuesday), 3 orders, 13,985 |
+
+
+## Approach
+
+![flowchart](flowchart.svg)

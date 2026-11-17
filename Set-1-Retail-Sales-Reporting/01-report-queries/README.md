@@ -1,4 +1,4 @@
-# Task 1 – Report Queries
+# Question 1 – Report Queries
 
 Revenue = quantity × unit price of delivered orders (the one cancelled order is left out).
 
@@ -14,6 +14,8 @@ Revenue = quantity × unit price of delivered orders (the one cancelled order is
 | [Q8_highest_sales_day.sql](Q8_highest_sales_day.sql) | Day with the highest sales |
 
 ## Output
+
+Full text output: [output.txt](output.txt)
 
 **Q1. Top 5 products by revenue**
 
@@ -46,3 +48,8 @@ Revenue = quantity × unit price of delivered orders (the one cancelled order is
 **Q8. Day with the highest sales**
 
 ![Q8](Q8_output.png)
+
+
+## Approach
+
+![flowchart](flowchart.svg)

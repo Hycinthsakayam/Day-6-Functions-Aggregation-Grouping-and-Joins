@@ -38,7 +38,7 @@ Each question has its own folder. Inside, you can find:
 
 - The query files (Question 1 has one file per report, e.g. `Q1_top5_products_by_revenue.sql`).
 - `output.txt` and screenshots (`*_output.png`) with the result.
-- `explanation.md` with what the question asks and what the output shows.
+- `README.md` with the question, the query and the output screenshots (it opens automatically on GitHub).
 - `flowchart.svg`, which shows the steps followed.
 
 Question 4 (`04-expected-results`) is the expected-result document.

@@ -1,4 +1,4 @@
-# Task 4 – Expected Result of Every Query
+# Question 4 – Expected Result of Every Query
 
 Results were checked by running `setup.sql` and `reports.sql` on SQL Server 2025 Express. Screenshots are in [01-report-queries](../01-report-queries/).
 
@@ -12,3 +12,8 @@ Results were checked by running `setup.sql` and `reports.sql` on SQL Server 2025
 | [Q6](../01-report-queries/Q6_avg_premium_by_age_band.sql) | Average premium by age band | 4 bands: 60+ highest at 42,000, 18-29 lowest at 4,900 |
 | [Q7](../01-report-queries/Q7_monthly_new_policies.sql) | Monthly new policies (last 12 months) | 11 rows from 2025-12 to 2026-11 |
 | [Q8](../01-report-queries/Q8_top5_agents_by_premium.sql) | Top 5 agents by premium | 5 rows: Suresh Kumar first with 2,90,900 |
+
+
+## Approach
+
+![flowchart](flowchart.svg)

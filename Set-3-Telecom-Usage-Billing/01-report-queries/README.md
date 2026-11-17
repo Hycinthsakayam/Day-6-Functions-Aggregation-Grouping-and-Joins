@@ -1,4 +1,4 @@
-# Task 1 – Report Queries
+# Question 1 – Report Queries
 
 Usage covers 1 Oct – 15 Nov 2026 and invoices cover Aug – Oct 2026. Date-based results are as of 17 Nov 2026.
 
@@ -14,6 +14,8 @@ Usage covers 1 Oct – 15 Nov 2026 and invoices cover Aug – Oct 2026. Date-bas
 | [Q8_top10_data_consumers.sql](Q8_top10_data_consumers.sql) | Top 10 data consumers |
 
 ## Output
+
+Full text output: [output.txt](output.txt)
 
 **Q1. Total call minutes per plan**
 
@@ -46,3 +48,8 @@ Usage covers 1 Oct – 15 Nov 2026 and invoices cover Aug – Oct 2026. Date-bas
 **Q8. Top 10 data consumers**
 
 ![Q8](Q8_output.png)
+
+
+## Approach
+
+![flowchart](flowchart.svg)

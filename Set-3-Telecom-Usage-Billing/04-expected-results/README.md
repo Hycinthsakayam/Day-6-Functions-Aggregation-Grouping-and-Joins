@@ -1,4 +1,4 @@
-# Task 4 – Expected Result of Every Query
+# Question 4 – Expected Result of Every Query
 
 Results were checked by running `setup.sql` and `reports.sql` on SQL Server 2025 Express. Screenshots are in [01-report-queries](../01-report-queries/).
 
@@ -12,3 +12,8 @@ Results were checked by running `setup.sql` and `reports.sql` on SQL Server 2025
 | [Q6](../01-report-queries/Q6_arpu_by_circle.sql) | ARPU by circle (Oct 2026) | 4 rows: Mumbai 667.49 highest, Tamil Nadu 372.62 lowest |
 | [Q7](../01-report-queries/Q7_plan_popularity.sql) | Plan popularity | 5 rows: Basic, Smart and Unlimited tied at 4 subscribers (26.67%) |
 | [Q8](../01-report-queries/Q8_top10_data_consumers.sql) | Top 10 data consumers | 10 rows: Vikram Singh first with 229.63 GB |
+
+
+## Approach
+
+![flowchart](flowchart.svg)
